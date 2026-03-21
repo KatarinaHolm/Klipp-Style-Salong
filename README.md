@@ -4,7 +4,7 @@ _Usage_
 The API can get all the bookings, create new bookings and delete a booking. 
 
 _Project Description_  
-A booking backend system for a hair salon. Database can be created through Entity Framework using the project.
+A booking backend system for a hair salon. Database can be created through Entity Framework using the project. [More about this project](about.md)
 
 _Purpose_  
 This is an exercise in creating Minimal REST-API, validation and async programming. 
