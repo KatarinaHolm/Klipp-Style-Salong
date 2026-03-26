@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Klipp_StyleSalong</RootNamespace>
+    <UserSecretsId>f7479027-2fd5-4b12-898a-600c68e0ce2d</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

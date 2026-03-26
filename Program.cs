@@ -35,6 +35,7 @@ namespace Klipp_StyleSalong
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -49,7 +50,13 @@ namespace Klipp_StyleSalong
             app.UseAuthorization();
 
             BookingEndpoints.RegisterEndpoints(app);
-          
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<SalonDbContext>();
+                dbContext.Database.Migrate();
+            }
+
             app.Run();
         }
     }

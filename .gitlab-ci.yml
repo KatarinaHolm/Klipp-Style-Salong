@@ -41,3 +41,20 @@ publish_project:
     paths:
       - ./publish 
     expire_in: 1 week
+
+    #deploy
+deploy_to_azure:
+  stage: deploy
+  image: mcr.microsoft.com/dotnet/sdk:10.0 # Du kan använda samma image
+  before_script:
+    # Vi behöver installera zip, curl är ofta redan installerat
+    - apt-get update && apt-get install -y zip curl
+  script:
+    - echo "Zippar ihop applikationen..."
+    - cd publish
+    - zip -r ../app.zip .
+    - cd ..
+    - echo "Skickar till Azure..."
+    - curl -X POST -u $AZURE_PUBLISH_USERNAME:$AZURE_PUBLISH_PASSWORD --data-binary @"app.zip" $AZURE_WEBAPP_URL
+  only:
+    - main # Deployar enbart när du pushar till main-branchen
