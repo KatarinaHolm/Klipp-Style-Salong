@@ -26,10 +26,8 @@ publish_project:
   stage: publish
   script:
     - echo "Publishing the application in Release mode..."
-    # -c Release betyder att koden optimeras för produktion
-    # -o ./publish betyder att filerna läggs i en mapp som heter "publish"
-    - dotnet publish -c Release -o ./publish
+    - dotnet publish "C:\Katarina\source\repos\Egna projekt\API-Pipeline\Klipp&StyleSalong.csproj" -c Release -o ./publish
   artifacts:
     paths:
-      - ./publish # Berätta för GitLab att spara den här mappen
-    expire_in: 1 week # Filerna raderas automatiskt efter 1 vecka för att spara lagringsutrymme på GitLab
+      - ./publish 
+    expire_in: 1 week
