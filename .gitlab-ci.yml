@@ -1,6 +1,16 @@
 ﻿# Use the official .NET 10 SDK image
 image: mcr.microsoft.com/dotnet/sdk:10.0
 
+variables:
+  # Berätta för NuGet var lokala paket ska sparas så de kan sparas i cache
+  NUGET_PACKAGES_DIRECTORY: .nuget/packages
+
+cache:
+  # Definiera vilken mapp som ska sparas mellan körningar
+  key: "$CI_JOB_STAGE-$CI_COMMIT_REF_SLUG"
+  paths:
+    - .nuget/packages
+
 # Define the order of stages
 stages:
   - build
@@ -19,7 +29,7 @@ test_project:
   stage: test
   script:
     - echo "Running tests..."
-    - dotnet test
+    - dotnet test --collect:"XPlat Code Coverage"
 
 # Define a job for the publish stage
 publish_project:
