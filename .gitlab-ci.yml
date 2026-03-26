@@ -5,6 +5,7 @@ image: mcr.microsoft.com/dotnet/sdk:10.0
 stages:
   - build
   - test
+  - publish
 
 # Define a job for the build stage
 build_project:
@@ -19,3 +20,16 @@ test_project:
   script:
     - echo "Running tests..."
     - dotnet test
+
+# Define a job for the publish stage
+publish_project:
+  stage: publish
+  script:
+    - echo "Publishing the application in Release mode..."
+    # -c Release betyder att koden optimeras för produktion
+    # -o ./publish betyder att filerna läggs i en mapp som heter "publish"
+    - dotnet publish -c Release -o ./publish
+  artifacts:
+    paths:
+      - ./publish # Berätta för GitLab att spara den här mappen
+    expire_in: 1 week # Filerna raderas automatiskt efter 1 vecka för att spara lagringsutrymme på GitLab
