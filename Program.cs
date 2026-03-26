@@ -1,11 +1,12 @@
-
 using Klipp_StyleSalong.Data;
 using Klipp_StyleSalong.Endpoints;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Scalar.AspNetCore;
+using System;
 
 namespace Klipp_StyleSalong
 {
@@ -32,9 +33,15 @@ namespace Klipp_StyleSalong
 
             builder.Services.AddDbContext<SalonDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), 
+                    sqlServerOptionsAction: sqlOptions =>
+                    {
+                        sqlOptions.EnableRetryOnFailure(
+                            maxRetryCount: 5,
+                            maxRetryDelay: TimeSpan.FromSeconds(30),
+                            errorNumbersToAdd: null);
+                    });
             });
-
             
             var app = builder.Build();
 
