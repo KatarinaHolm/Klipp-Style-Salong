@@ -1,0 +1,13 @@
+﻿# Use the official .NET 10 SDK image
+image: mcr.microsoft.com/dotnet/sdk:10.0
+
+# Define the order of stages
+stages:
+  - build
+
+# Define a job for the build stage
+build_project:
+  stage: build
+  script:
+    - echo "Building the .NET project..."
+    - dotnet build
