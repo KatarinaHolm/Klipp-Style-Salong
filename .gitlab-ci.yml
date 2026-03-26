@@ -4,6 +4,7 @@ image: mcr.microsoft.com/dotnet/sdk:10.0
 # Define the order of stages
 stages:
   - build
+  - test
 
 # Define a job for the build stage
 build_project:
@@ -11,3 +12,10 @@ build_project:
   script:
     - echo "Building the .NET project..."
     - dotnet build
+
+# Define a job for the test stage
+test_project:
+  stage: test
+  script:
+    - echo "Running tests..."
+    - dotnet test
