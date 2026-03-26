@@ -26,7 +26,7 @@ publish_project:
   stage: publish
   script:
     - echo "Publishing the application in Release mode..."
-    - dotnet publish "C:\Katarina\source\repos\Egna projekt\API-Pipeline\Klipp&StyleSalong.csproj" -c Release -o ./publish
+    - dotnet publish "Klipp&StyleSalong.csproj" -c Release -o ./publish
   artifacts:
     paths:
       - ./publish 
