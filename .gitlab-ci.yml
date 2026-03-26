@@ -16,6 +16,7 @@ stages:
   - build
   - test
   - publish
+  - deploy  
 
 # Define a job for the build stage
 build_project:
